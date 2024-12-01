@@ -1,0 +1,53 @@
+<div id="delete-modal" class="modal">
+  <div class="modal-content">
+    <p>本当に削除しますか？</p>
+    <div class="modal-actions">
+      <button id="cancel-delete-btn" class="btn btn-secondary">キャンセル</button>
+      <button id="confirm-delete-btn" class="btn btn-danger">削除</button>
+    </div>
+  </div>
+</div>
+
+<% if flash[:notice] %>
+  <div class="flash flash-notice"><%= flash[:notice] %></div>
+<% end %>
+
+<div class="schedule-info">
+  <p>今日の日付: <%= @today.strftime('%Y/%m/%d') %></p>
+  <p>予定の合計数: <%= @total_schedules %> 件</p>
+</div>
+
+<div class="header-actions">
+  <%= link_to '新しい予定を作成', new_schedule_path, class: 'btn btn-primary' %>
+</div>
+
+<table class="schedule-table">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th class="title">タイトル</th>
+      <th>開始日</th>
+      <th>終了日</th>
+      <th>終日</th>
+      <th>更新日時</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @schedules.each do |schedule| %>
+      <tr class="schedule-row">
+        <td><%= schedule.id %></td>
+        <td><%= schedule.title %></td>
+        <td><%= schedule.start_date.to_s(:datetime_jp) %></td>
+        <td><%= schedule.end_date.to_s(:datetime_jp) %></td>
+        <td><%= schedule.all_day ? "◯" : "" %></td>
+        <td><%= schedule.updated_at.to_s(:datetime_jp_with_time) %></td>
+        <td>
+          <%= link_to '詳細', schedule_path(schedule), class: 'btn btn-show' %>
+          <%= link_to '編集', edit_schedule_path(schedule), class: 'btn btn-edit' %>
+          <button class="btn btn-delete" id="index-delete-button" data-id="<%= schedule.id %>">削除</button>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>

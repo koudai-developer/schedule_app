@@ -1,0 +1,29 @@
+<h1>予定詳細</h1>
+
+<p>
+  <strong>タイトル:</strong>
+  <%= @schedule.title %>
+</p>
+
+<p>
+  <strong>開始日:</strong>
+  <%= @schedule.start_date.to_s(:datetime_jp) %>
+</p>
+
+<p>
+  <strong>終了日:</strong>
+  <%= @schedule.end_date.to_s(:datetime_jp) %>
+</p>
+
+<p>
+  <strong>終日:</strong>
+  <%= @schedule.all_day ? "◯" : "" %>
+</p>
+
+<p>
+  <strong>メモ:</strong>
+  <%= @schedule.memo %>
+</p>
+
+<%= link_to '編集', edit_schedule_path(@schedule), class: 'btn btn-edit' %>
+<%= link_to '一覧に戻る', schedules_path, class: 'btn btn-edit' %>
